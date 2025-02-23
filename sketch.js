@@ -13,23 +13,23 @@ function draw() {
   let circleSpacingY = circleDiameter; // 調整圓之間的垂直間距，使其不重疊
 
   let numberOfCirclesX = Math.floor(width / circleSpacingX); // 計算視窗中水平方向可以容納的圓的數量
-  let numberOfCirclesY = Math.floor(height / circleSpacingY); // 計算視窗中垂直方向可以容納的圓的數量
+  //let numberOfCirclesY = Math.floor(height / circleSpacingY); // 計算視窗中垂直方向可以容納的圓的數量
 
   let startX = (width - numberOfCirclesX * circleSpacingX) / 2 + circleDiameter / 2; // 調整起始 x 座標，使圓在水平方向居中顯示
-  let startY = (height - numberOfCirclesY * circleSpacingY) / 2 + circleDiameter / 2; // 調整起始 y 座標，使圓在垂直方向居中顯示
+  let startY = height / 2; // 調整起始 y 座標，使圓在垂直方向居中顯示，固定在畫面中間
 
-  for (let j = 0; j < numberOfCirclesY; j++) {
+  //for (let j = 0; j < numberOfCirclesY; j++) {
     for (let i = 0; i < numberOfCirclesX; i++) {
       let x = startX + i * circleSpacingX;
-      let y = startY + j * circleSpacingY;
-      let hue = map(x + y, startX + startY, startX + startY + (numberOfCirclesX - 1) * circleSpacingX + (numberOfCirclesY - 1) * circleSpacingY, 0, 360); // 將 x 和 y 座標映射到色相值
+      let y = startY;
+      let hue = map(x, startX, startX + (numberOfCirclesX - 1) * circleSpacingX, 0, 360); // 將 x 座標映射到色相值
       hue = (hue + hueOffset) % 360; // 增加色相偏移，並使用模數運算確保色相值在 0-360 範圍內
       let brightness = map(mouseY, 0, height, 100, 0); // 根據滑鼠的垂直位置映射亮度值
       let saturation = map(mouseX, 0, width, 0, 100); // 根據滑鼠的水平位置映射飽和度值
       fill(hue, saturation, brightness, 1); // 設定填充顏色，使用滑鼠控制的亮度和飽和度
       ellipse(x, y, circleDiameter, circleDiameter); // 繪製圓圈
     }
-  }
+  //}
 
   hueOffset = (hueOffset + 1) % 360; // 每次 draw 迴圈增加色相偏移
   //noLoop(); // 移除 noLoop，以便持續更新畫面
